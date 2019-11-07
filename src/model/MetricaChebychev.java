@@ -24,6 +24,7 @@ public class MetricaChebychev extends Knn {
 			distanciaAux = new ArrayList<Float>();
 		}
 		knn = this.findSmallest(distanciaChebychev, k);//encontra os k vizinhos mais próximos
+		
 		for(int i = 0; i < k; i++) {
 			int index = distanciaChebychev.indexOf(knn.get(i));//descobre qual o índice iésima da imagem no dataset
 			String tag = dataset.getTags().get(index);//observa qual é a tag da iésima imagem do dataset
@@ -33,6 +34,7 @@ public class MetricaChebychev extends Knn {
 				noPerson += 1;
 			}
 		}
+		//System.out.println("Chebychev: " + knn + "person "+this.person + " no person " + this.noPerson);
 		if(person >= noPerson) {//se dos k vizinhos, houver um empate, ou houver mais person, retorna pessoa detectada (nesse contexto, falso positivo é mais favorável do que falso negativo)
 			return "Person detected";
 		}else {//se não, retorna que nenhuma pessoa foi detectada

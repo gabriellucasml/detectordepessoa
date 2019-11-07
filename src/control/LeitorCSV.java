@@ -11,37 +11,39 @@ public class LeitorCSV {
 	private FileReader file;
 	private BufferedReader buffer;
 	private ArrayList<Float> features;
-	private String tag;
+	private ArrayList<String> tags;
 	
 	public LeitorCSV(String caminho) throws IOException, FileNotFoundException{
 		file = new FileReader(caminho);
 		buffer = new BufferedReader(file);
 		features = new ArrayList<Float>();
+		tags = new ArrayList<String>();
 	}
 	
 	public void ler(String caminho) throws IOException{
 		String ref = ","; //Divisor de arquivos csv
 		String line = buffer.readLine();
-		if(line != null) {
-			String[] ln = line.split(ref);
-			for(String feature : ln) {
-				try {
-					Float aux = Float.parseFloat(feature);//elemento auxiliar para segurar o valor da feature
-					features.add(aux);
-				}catch(NumberFormatException e) {
-					tag = feature;
+		while(line != null) {
+			if(line != null) {
+				String[] ln = line.split(ref);
+				for(String feature : ln) {
+					try {
+						Float aux = Float.parseFloat(feature);//elemento auxiliar para segurar o valor da feature
+						features.add(aux);
+					}catch(NumberFormatException e) {
+						tags.add(feature);
+					}
 				}
 			}
+			line = buffer.readLine();
 		}
 	}
 	
-	public String getTag() {
-		return this.tag;
+	public ArrayList<String> getTag() {
+		return this.tags;
 	}
 	
-	public ArrayList<Float> popFeatures(){
-		ArrayList<Float> novo = this.features;
-		this.features = new ArrayList<Float>();
-		return novo;
+	public ArrayList<Float> getFeatures(){
+		return this.features;
 	}
 }

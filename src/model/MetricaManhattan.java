@@ -30,7 +30,7 @@ public class MetricaManhattan extends Knn {
 				noPerson += 1;
 			}
 		}
-		
+		//System.out.println("Manhattan: " + knn + "person "+this.person + " no person " + this.noPerson);
 		if(person >= noPerson) {
 			return "Person detected";
 		}else {
