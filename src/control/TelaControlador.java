@@ -25,7 +25,7 @@ import model.MetricaManhattan;
 public class TelaControlador {
 	private int k = 3;
 	private String datasetPath = "detectordepessoas\\dataset.csv";
-	private boolean euclidian, manhattan, chebychev;
+	private boolean euclidianCheck, manhattanCheck, chebychevCheck;
 	@FXML
 	private Button applayMetric;
 	
@@ -86,20 +86,48 @@ public class TelaControlador {
 				euclidian = me.knnfunction(this.k, img, dtset);
 				manhattan = mm.knnfunction(this.k, img, dtset);
 				chebychev = mc.knnfunction(this.k, img, dtset);
-				if(this.euclidian) {
-					
-				}else if(this.manhattan) {
-					
-				}else if(this.chebychev) {
-					
-				}else if(this.euclidian && this.manhattan) {
-					
-				}else if(this.euclidian && this.chebychev) {
-					
-				}else if(this.manhattan && this.chebychev) {
-					
-				}else if(this.euclidian && this.chebychev && this.manhattan) {
-					
+				if(this.euclidian && !this.manhattan && !this.chebychev) {
+					if(euclidian.equals("person")){
+						result.setText("Person detected");
+					}else{
+						result.setText("Person not detected");
+					}	
+				}else if(this.manhattanCheck && !this.euclidianCheck && !this.chebychevCheck) {
+					if(manhattan.equals("person")){
+						result.setText("Person detected");
+					}else{
+						result.setText("Person not detected");
+					}
+				}else if(this.chebychevCheck && !this.euclidianCheck && !this.manhattanCheck) {
+					if(chebychev.equals("person")){
+						result.setText("Person detected");
+					}else{
+						result.setText("Person not detected");
+					}
+				}else if(this.euclidianCheck && this.manhattanCheck && !this.chebychevCheck) {
+					if(euclidian.equals("person") && manhattan.equals("person")){
+						result.setText("Person Detected);
+					}else{
+						result.setText("Person not detected");
+					}	
+				}else if(this.euclidianCheck && this.chebychevCheck && !this.manhattanCheck) {
+					if(euclidian.equals("person") && chebychev.equals("person")){
+						result.setText("Person Detected);
+					}else{
+						result.setText("Person not detected");
+					}
+				}else if(this.manhattanCheck && this.chebychevCheck && !this.euclidianCheck) {
+					if(manhattan.equals("person") && chebychev.equals("person")){
+						result.setText("Person Detected);
+					}else{
+						result.setText("Person not detected");
+					}
+				}else if(this.euclidianCheck && this.chebychevCheck && this.manhattanCheck) {
+					if(euclidian.equals("person") && manhattan.equals("person") && chebychev.equals("person")){
+						result.setText("Person Detected);
+					}else{
+						result.setText("Person not detected");
+					}
 				}else {
 					result.setText("Select at least one metric.");
 				}
