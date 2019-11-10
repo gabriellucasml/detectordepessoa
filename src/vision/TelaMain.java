@@ -13,7 +13,7 @@ public class TelaMain extends Application{
 	public void start(Stage primaryStage) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("Tela.fxml"));
 		
-		Scene scene = new Scene(root);
+		Scene scene = new Scene(root, 502, 676);
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();

@@ -8,7 +8,7 @@ public class MetricaEuclidiana extends Knn{
 	public String knnfunction(int k, ArrayList<Float> imagem, Dataset dataset) {
 		ArrayList<Float> distanciaEuclidiana = new ArrayList<Float>();
 		ArrayList<Float> knn = new ArrayList<Float>();
-		for(int i = 0; i<100; i++) {
+		for(int i = 0; i < dataset.getQntImagens(); i++) {
 			Float dif = (float)0.0;
 			Float sqr = (float)0.0;
 			Float sqrt = (float)0.0;

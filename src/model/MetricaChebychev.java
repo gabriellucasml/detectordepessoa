@@ -9,11 +9,12 @@ public class MetricaChebychev extends Knn {
 		ArrayList<Float> distanciaAux = new ArrayList<Float>();
 		ArrayList<Float> knn = new ArrayList<Float>();
 		Float dif;
-		for(int i = 0; i < 100; i++) {//compara cada param da imagem passada com os das imagens do dataset
+		for(int i = 0; i < dataset.getQntImagens(); i++) {//compara cada param da imagem passada com os das imagens do dataset
 			for(int j = 0; j < 1000; j++) {
 				dif = dataset.getFeatures().get(i).get(j) - imagem.get(j);
-				distanciaAux.add(dif);
+				distanciaAux.add(Math.abs(dif));
 			}
+			
 			Float max = distanciaAux.get(0);
 			for(int l = 0; l<distanciaAux.size(); l++) {//percorre o vetor que segura as distências entre a imagem passada e a iésima imagem do dataset
 				if(distanciaAux.get(l)>max){
@@ -23,8 +24,9 @@ public class MetricaChebychev extends Knn {
 			distanciaChebychev.add(max);//a maior componente do vetor é adicionada ao vetor das distancias
 			distanciaAux = new ArrayList<Float>();
 		}
-		knn = this.findSmallest(distanciaChebychev, k);//encontra os k vizinhos mais próximos
 		
+		knn = this.findSmallest(distanciaChebychev, k);//encontra os k vizinhos mais próximos
+		System.out.println(knn.toString());
 		for(int i = 0; i < k; i++) {
 			int index = distanciaChebychev.indexOf(knn.get(i));//descobre qual o índice iésima da imagem no dataset
 			String tag = dataset.getTags().get(index);//observa qual é a tag da iésima imagem do dataset

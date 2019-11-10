@@ -3,10 +3,14 @@ package control;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
@@ -22,10 +26,14 @@ import model.MetricaChebychev;
 import model.MetricaEuclidiana;
 import model.MetricaManhattan;
 
-public class TelaControlador {
+public class TelaControlador implements Initializable{
 	private int k = 3;
 	private String datasetPath = "detectordepessoas\\dataset.csv";
 	private boolean euclidianCheck, manhattanCheck, chebychevCheck;
+	
+	@FXML
+	private AnchorPane anchorPane;
+	
 	@FXML
 	private Button applayMetric;
 	
@@ -54,7 +62,7 @@ public class TelaControlador {
 	private MenuItem changeDataset, cahngeK, about;
 	
 	@FXML
-	private CheckMenuItem euclidianCheck, manhattanCheck, chebychevCheck;
+	private CheckMenuItem euclidianCheckbox, manhattanCheckbox, chebychevCheckbox;
 	
 	@FXML
 	public void searchAction(ActionEvent e){
@@ -86,45 +94,45 @@ public class TelaControlador {
 				euclidian = me.knnfunction(this.k, img, dtset);
 				manhattan = mm.knnfunction(this.k, img, dtset);
 				chebychev = mc.knnfunction(this.k, img, dtset);
-				if(this.euclidian && !this.manhattan && !this.chebychev) {
-					if(euclidian.equals("person")){
+				if(this.euclidianCheck && !this.manhattanCheck && !this.chebychevCheck) {
+					if(euclidian.equals("Person detected")){
 						result.setText("Person detected");
 					}else{
 						result.setText("Person not detected");
 					}	
 				}else if(this.manhattanCheck && !this.euclidianCheck && !this.chebychevCheck) {
-					if(manhattan.equals("person")){
+					if(manhattan.equals("Person detected")){
 						result.setText("Person detected");
 					}else{
 						result.setText("Person not detected");
 					}
 				}else if(this.chebychevCheck && !this.euclidianCheck && !this.manhattanCheck) {
-					if(chebychev.equals("person")){
+					if(chebychev.equals("Person detected")){
 						result.setText("Person detected");
 					}else{
 						result.setText("Person not detected");
 					}
 				}else if(this.euclidianCheck && this.manhattanCheck && !this.chebychevCheck) {
-					if(euclidian.equals("person") && manhattan.equals("person")){
-						result.setText("Person Detected);
+					if(euclidian.equals("Person detected") || manhattan.equals("Person detected")){
+						result.setText("Person Detected");
 					}else{
 						result.setText("Person not detected");
 					}	
 				}else if(this.euclidianCheck && this.chebychevCheck && !this.manhattanCheck) {
-					if(euclidian.equals("person") && chebychev.equals("person")){
-						result.setText("Person Detected);
+					if(euclidian.equals("Person detected") || chebychev.equals("Person detected")){
+						result.setText("Person Detected");
 					}else{
 						result.setText("Person not detected");
 					}
 				}else if(this.manhattanCheck && this.chebychevCheck && !this.euclidianCheck) {
-					if(manhattan.equals("person") && chebychev.equals("person")){
-						result.setText("Person Detected);
+					if(manhattan.equals("Person detected") || chebychev.equals("Person detected")){
+						result.setText("Person Detected");
 					}else{
 						result.setText("Person not detected");
 					}
 				}else if(this.euclidianCheck && this.chebychevCheck && this.manhattanCheck) {
-					if(euclidian.equals("person") && manhattan.equals("person") && chebychev.equals("person")){
-						result.setText("Person Detected);
+					if(euclidian.equals("Person detected") && manhattan.equals("Person detected") || euclidian.equals("Person detected")&&chebychev.equals("Person detected") || manhattan.equals("Person detected")&&chebychev.equals("Person detected")){
+						result.setText("Person Detected");
 					}else{
 						result.setText("Person not detected");
 					}
@@ -136,6 +144,14 @@ public class TelaControlador {
 			result.setText("Unable to find dataset.");
 		} catch (IOException e1) {
 			result.setText("Something seems to be wrong with the dataset!");
-		}	
+		} catch (Exception e1) {
+			result.setText("Something wrong with the image");
+		}
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
 	}
 }

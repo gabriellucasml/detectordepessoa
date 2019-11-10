@@ -12,6 +12,7 @@ public class LeitorCSV {
 	private BufferedReader buffer;
 	private ArrayList<Float> features;
 	private ArrayList<String> tags;
+	private int linhas;
 	
 	public LeitorCSV(String caminho) throws IOException, FileNotFoundException{
 		file = new FileReader(caminho);
@@ -36,11 +37,16 @@ public class LeitorCSV {
 				}
 			}
 			line = buffer.readLine();
+			this.linhas += 1;
 		}
 	}
 	
 	public ArrayList<String> getTag() {
 		return this.tags;
+	}
+	
+	public int getLinhas() {
+		return this.linhas;
 	}
 	
 	public ArrayList<Float> getFeatures(){

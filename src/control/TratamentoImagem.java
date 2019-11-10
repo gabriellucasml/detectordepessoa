@@ -13,7 +13,7 @@ public class TratamentoImagem {
 	static {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
-	public ArrayList<Float> TratarImage(String caminho){
+	public ArrayList<Float> TratarImage(String caminho) throws Exception{
 		HOGDescriptor hog = new HOGDescriptor();
 		Mat img = new Mat();
 		MatOfFloat features = new MatOfFloat();
